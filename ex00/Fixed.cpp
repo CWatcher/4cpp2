@@ -14,12 +14,20 @@ Fixed::~Fixed( void )
 {
 	std::cout << "Destructor called" << std::endl;
 }
-int Fixed::getRawBits() const
+
+int		Fixed::getRawBits( void ) const
 {
 	std::cout << "getRawBits member function called" << std::endl;
 	return _rawBits;
 }
-void Fixed::setRawBits( int x )
+void 	Fixed::setRawBits( int x )
 {
+	std::cout << "setRawBits member function called" << std::endl;
 	_rawBits = x;
+}
+Fixed& 	Fixed::operator=( const Fixed& x )
+{
+	std::cout << "Assignation operator called" << std::endl;
+	_rawBits = x.getRawBits();
+	return *this;
 }

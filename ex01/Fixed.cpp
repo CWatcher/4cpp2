@@ -12,6 +12,11 @@ Fixed::Fixed( const Fixed& x )
 	std::cout << "Copy constructor called" << std::endl;
 	_rawBits = x.getRawBits();
 }
+Fixed::Fixed( const int x )
+{
+	std::cout << "Int constructor called" << std::endl;
+	_rawBits = x << _nFractionalBits;
+}
 Fixed::~Fixed( void )
 {
 	std::cout << "Destructor called" << std::endl;
@@ -19,12 +24,10 @@ Fixed::~Fixed( void )
 
 int		Fixed::getRawBits( void ) const
 {
-	std::cout << "getRawBits member function called" << std::endl;
 	return _rawBits;
 }
 void 	Fixed::setRawBits( int x )
 {
-	std::cout << "setRawBits member function called" << std::endl;
 	_rawBits = x;
 }
 Fixed& 	Fixed::operator=( const Fixed& x )
@@ -32,4 +35,8 @@ Fixed& 	Fixed::operator=( const Fixed& x )
 	std::cout << "Assignation operator called" << std::endl;
 	_rawBits = x.getRawBits();
 	return *this;
+}
+int 	Fixed::toInt( void ) const
+{
+	return _rawBits >> _nFractionalBits;
 }

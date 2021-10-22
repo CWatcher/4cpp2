@@ -12,5 +12,6 @@ public:
 	void setRawBits( int const raw );
 	Fixed& operator=( const Fixed& x );
 private:
+	static const int _nFractionalBits;
 	int _rawBits;
 };

@@ -1,0 +1,6 @@
+*.dSYM
+*.o
+*.d
+*.log
+**/.vscode/settings.json
+aa

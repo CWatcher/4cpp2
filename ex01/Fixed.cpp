@@ -17,6 +17,13 @@ Fixed::Fixed( const int x )
 	std::cout << "Int constructor called" << std::endl;
 	_rawBits = x << _nFractionalBits;
 }
+Fixed::	Fixed( const float x )
+{
+	std::cout << "Float constructor called" << std::endl;
+	_rawBits = ( int )x << _nFractionalBits;
+	float fraction = x - ( int )x;
+	_rawBits += fraction * (1 << _nFractionalBits);
+}
 Fixed::~Fixed( void )
 {
 	std::cout << "Destructor called" << std::endl;
@@ -39,4 +46,27 @@ Fixed& 	Fixed::operator=( const Fixed& x )
 int 	Fixed::toInt( void ) const
 {
 	return _rawBits >> _nFractionalBits;
+}
+double 	Fixed::toDouble( void ) const
+{
+	unsigned fractionalAntiMask = ~( unsigned )0 << 8;
+	unsigned fractionalMask = ~fractionalAntiMask;
+	unsigned fractionalBits = _rawBits & fractionalMask;
+	unsigned fractionSize = 1 << _nFractionalBits;
+	double fractional = ( double )fractionalBits / fractionSize;
+	return toInt() + fractional;
+}
+float 	Fixed::toFloat( void ) const
+{
+	unsigned fractionalAntiMask = ~( unsigned )0 << 8;
+	unsigned fractionalMask = ~fractionalAntiMask;
+	unsigned fractionalBits = _rawBits & fractionalMask;
+	unsigned fractionSize = 1 << _nFractionalBits;
+	float fractional = ( float )fractionalBits / fractionSize;
+	return toInt() + fractional;
+}
+std::ostream&	operator<<( std::ostream& os, const Fixed& x )
+{
+	os << x.toDouble();
+	return os;
 }

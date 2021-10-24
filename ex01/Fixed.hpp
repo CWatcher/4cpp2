@@ -15,10 +15,11 @@ public:
 	void	setRawBits( int const raw );
 	Fixed&	operator=( const Fixed& x );
 	int		toInt( void ) const;
-	double	toDouble( void ) const;
 	float	toFloat( void ) const;
+	double	toDouble( void ) const;
 private:
 	static const int	_nFractionalBits;
+	static const int	_nFractionalCapacity;
 	int					_rawBits;
 };
 

@@ -1,7 +1,9 @@
 #include "Fixed.hpp"
+#include <cmath>
 #include <iostream>
 
 const int	Fixed::_nFractionalBits = 8;
+const int	Fixed::_nFractionalCapacity = 1 << _nFractionalBits;
 
 Fixed::Fixed( void ): _rawBits( 0 )
 {
@@ -10,7 +12,7 @@ Fixed::Fixed( void ): _rawBits( 0 )
 Fixed::Fixed( const Fixed& x )
 {
 	std::cout << "Copy constructor called" << std::endl;
-	_rawBits = x.getRawBits();
+	*this = x;
 }
 Fixed::Fixed( const int x )
 {
@@ -20,9 +22,7 @@ Fixed::Fixed( const int x )
 Fixed::	Fixed( const float x )
 {
 	std::cout << "Float constructor called" << std::endl;
-	_rawBits = ( int )x << _nFractionalBits;
-	float fraction = x - ( int )x;
-	_rawBits += fraction * (1 << _nFractionalBits);
+	_rawBits = roundf(x * _nFractionalCapacity);
 }
 Fixed::~Fixed( void )
 {
@@ -49,21 +49,11 @@ int 	Fixed::toInt( void ) const
 }
 double 	Fixed::toDouble( void ) const
 {
-	unsigned fractionalAntiMask = ~( unsigned )0 << 8;
-	unsigned fractionalMask = ~fractionalAntiMask;
-	unsigned fractionalBits = _rawBits & fractionalMask;
-	unsigned fractionSize = 1 << _nFractionalBits;
-	double fractional = ( double )fractionalBits / fractionSize;
-	return toInt() + fractional;
+	return ( double )_rawBits / _nFractionalCapacity;
 }
 float 	Fixed::toFloat( void ) const
 {
-	unsigned fractionalAntiMask = ~( unsigned )0 << 8;
-	unsigned fractionalMask = ~fractionalAntiMask;
-	unsigned fractionalBits = _rawBits & fractionalMask;
-	unsigned fractionSize = 1 << _nFractionalBits;
-	float fractional = ( float )fractionalBits / fractionSize;
-	return toInt() + fractional;
+	return ( float )_rawBits / _nFractionalCapacity;
 }
 std::ostream&	operator<<( std::ostream& os, const Fixed& x )
 {

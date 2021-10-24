@@ -26,14 +26,85 @@ int		Fixed::getRawBits( void ) const
 {
 	return _rawBits;
 }
-void 	Fixed::setRawBits( int x )
+Fixed& 	Fixed::setRawBits( int x )
 {
 	_rawBits = x;
+	return *this;
+}
+Fixed&	Fixed::operator++()
+{
+	++_rawBits;
+	return *this;
+}
+Fixed&	Fixed::operator--()
+{
+	--_rawBits;
+	return *this;
+}
+Fixed 	Fixed::operator++( int )
+{
+	Fixed	r( *this );
+	_rawBits++;
+	return r;
+}
+Fixed 	Fixed::operator--( int )
+{
+	Fixed	r( *this );
+	_rawBits--;
+	return r;
 }
 Fixed& 	Fixed::operator=( const Fixed& x )
 {
 	_rawBits = x.getRawBits();
 	return *this;
+}
+Fixed 	Fixed::operator+( const Fixed& x )
+{
+	Fixed	r( *this );
+	return r._rawBits += x._rawBits;
+}
+Fixed 	Fixed::operator-( const Fixed& x )
+{
+	Fixed	r( *this );
+	return r._rawBits -= x._rawBits;
+}
+Fixed 	Fixed::operator*( const Fixed& x )
+{
+	Fixed	r( *this );
+	r._rawBits *= x._rawBits;
+	r._rawBits >>= _nFractionalBits;
+	return r;
+}
+Fixed 	Fixed::operator/( const Fixed& x )
+{
+	Fixed	r( *this );
+	r._rawBits /= x._rawBits;
+	r._rawBits <<= _nFractionalBits;
+	return r;
+}
+bool 	Fixed::operator<( const Fixed& x )
+{
+	return _rawBits < x._rawBits;
+}
+bool 	Fixed::operator>( const Fixed& x )
+{
+	return _rawBits > x._rawBits;
+}
+bool 	Fixed::operator==( const Fixed& x )
+{
+	return _rawBits == x._rawBits;
+}
+bool 	Fixed::operator!=( const Fixed& x )
+{
+	return _rawBits != x._rawBits;
+}
+bool 	Fixed::operator<=( const Fixed& x )
+{
+	return _rawBits <= x._rawBits;
+}
+bool 	Fixed::operator>=( const Fixed& x )
+{
+	return _rawBits >= x._rawBits;
 }
 int 	Fixed::toInt( void ) const
 {
@@ -47,8 +118,17 @@ float 	Fixed::toFloat( void ) const
 {
 	return ( float )_rawBits / _nFractionalCapacity;
 }
+
+const Fixed&	Fixed::max( const Fixed& x, const Fixed& y )
+{
+	return x.getRawBits() > y.getRawBits() ? x : y;
+}
+const Fixed&	Fixed::min( const Fixed& x, const Fixed& y )
+{
+	return x.getRawBits() < y.getRawBits() ? x : y;
+}
+
 std::ostream&	operator<<( std::ostream& os, const Fixed& x )
 {
-	os << x.toDouble();
-	return os;
+	return os << x.toDouble();
 }

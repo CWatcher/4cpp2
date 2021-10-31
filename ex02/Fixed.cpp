@@ -58,24 +58,24 @@ Fixed& 	Fixed::operator=( const Fixed& x )
 	_rawBits = x.getRawBits();
 	return *this;
 }
-Fixed 	Fixed::operator+( const Fixed& x )
+Fixed 	Fixed::operator+( const Fixed& x ) const
 {
 	Fixed	r( *this );
 	return r._rawBits += x._rawBits;
 }
-Fixed 	Fixed::operator-( const Fixed& x )
+Fixed 	Fixed::operator-( const Fixed& x ) const
 {
 	Fixed	r( *this );
 	return r._rawBits -= x._rawBits;
 }
-Fixed 	Fixed::operator*( const Fixed& x )
+Fixed 	Fixed::operator*( const Fixed& x ) const
 {
 	Fixed	r( *this );
 	r._rawBits *= x._rawBits;
 	r._rawBits >>= _nFractionalBits;
 	return r;
 }
-Fixed 	Fixed::operator/( const Fixed& x )
+Fixed 	Fixed::operator/( const Fixed& x ) const
 {
 	long d = _rawBits;
 	d <<= sizeof( int ) * 8;
@@ -84,27 +84,27 @@ Fixed 	Fixed::operator/( const Fixed& x )
 	Fixed r;
 	return r.setRawBits( d );
 }
-bool 	Fixed::operator<( const Fixed& x )
+bool 	Fixed::operator<( const Fixed& x ) const
 {
 	return _rawBits < x._rawBits;
 }
-bool 	Fixed::operator>( const Fixed& x )
+bool 	Fixed::operator>( const Fixed& x ) const
 {
 	return _rawBits > x._rawBits;
 }
-bool 	Fixed::operator==( const Fixed& x )
+bool 	Fixed::operator==( const Fixed& x ) const
 {
 	return _rawBits == x._rawBits;
 }
-bool 	Fixed::operator!=( const Fixed& x )
+bool 	Fixed::operator!=( const Fixed& x ) const
 {
 	return _rawBits != x._rawBits;
 }
-bool 	Fixed::operator<=( const Fixed& x )
+bool 	Fixed::operator<=( const Fixed& x ) const
 {
 	return _rawBits <= x._rawBits;
 }
-bool 	Fixed::operator>=( const Fixed& x )
+bool 	Fixed::operator>=( const Fixed& x ) const
 {
 	return _rawBits >= x._rawBits;
 }

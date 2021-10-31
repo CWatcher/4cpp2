@@ -3,4 +3,5 @@
 *.d
 *.log
 **/.vscode/settings.json
+**/.idea
 aa

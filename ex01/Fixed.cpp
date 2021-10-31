@@ -57,6 +57,7 @@ float 	Fixed::toFloat( void ) const
 }
 std::ostream&	operator<<( std::ostream& os, const Fixed& x )
 {
+//	os << x.toFloat();
 	os << x.toDouble();
 	return os;
 }

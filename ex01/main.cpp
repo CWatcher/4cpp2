@@ -1,8 +1,30 @@
 #include "Fixed.hpp"
 #include <iostream>
+#include <iomanip>
+#include <climits>
 
-int main( void )
+void compareOutput(int n)
 {
+	static Fixed f;
+	f.setRawBits( n );
+	std::cout << std::setprecision(20);
+	std::cout << (long double)f.getRawBits() /  (1 << 8) << std::endl;
+	std::cout << f << std::endl;
+	std::cout << std::endl;
+}
+
+void test()
+{
+	for (int i = 0; i < 256; i += 64)
+		compareOutput(INT_MAX - i);
+}
+
+int main( int, char* argv[] )
+{
+	if (argv[1]) {
+		test();
+		return 0;
+	}
 	Fixed a;
 	Fixed const b( 10 );
 	Fixed const c( 42.42f );

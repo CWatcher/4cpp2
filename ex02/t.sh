@@ -5,3 +5,4 @@ make > /dev/null		\
 	|| exit 1
 
 valgrind -q aa | diff subject.out - && echo ok!
+aa --extended

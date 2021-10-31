@@ -7,23 +7,19 @@ const int	Fixed::_nFractionalCapacity = 1 << _nFractionalBits;
 
 Fixed::Fixed( void ): _rawBits( 0 )
 {}
-Fixed::Fixed( const Fixed& x )
-{
+Fixed::Fixed( const Fixed& x ) {
 	*this = x;
 }
-Fixed::Fixed( const int x )
-{
+Fixed::Fixed( const int x ) {
 	_rawBits = x << _nFractionalBits;
 }
-Fixed::Fixed( const float x )
-{
+Fixed::Fixed( const float x ) {
 	_rawBits = roundf(x * _nFractionalCapacity);
 }
 Fixed::~Fixed( void )
 {}
 
-int		Fixed::getRawBits( void ) const
-{
+int		Fixed::getRawBits( void ) const {
 	return _rawBits;
 }
 Fixed& 	Fixed::setRawBits( int x )
@@ -84,53 +80,41 @@ Fixed 	Fixed::operator/( const Fixed& x ) const
 	Fixed r;
 	return r.setRawBits( d );
 }
-bool 	Fixed::operator<( const Fixed& x ) const
-{
+bool 	Fixed::operator<( const Fixed& x ) const {
 	return _rawBits < x._rawBits;
 }
-bool 	Fixed::operator>( const Fixed& x ) const
-{
+bool 	Fixed::operator>( const Fixed& x ) const {
 	return _rawBits > x._rawBits;
 }
-bool 	Fixed::operator==( const Fixed& x ) const
-{
+bool 	Fixed::operator==( const Fixed& x ) const {
 	return _rawBits == x._rawBits;
 }
-bool 	Fixed::operator!=( const Fixed& x ) const
-{
+bool 	Fixed::operator!=( const Fixed& x ) const {
 	return _rawBits != x._rawBits;
 }
-bool 	Fixed::operator<=( const Fixed& x ) const
-{
+bool 	Fixed::operator<=( const Fixed& x ) const {
 	return _rawBits <= x._rawBits;
 }
-bool 	Fixed::operator>=( const Fixed& x ) const
-{
+bool 	Fixed::operator>=( const Fixed& x ) const {
 	return _rawBits >= x._rawBits;
 }
-int 	Fixed::toInt( void ) const
-{
+int 	Fixed::toInt( void ) const {
 	return _rawBits >> _nFractionalBits;
 }
-double 	Fixed::toDouble( void ) const
-{
+double 	Fixed::toDouble( void ) const {
 	return ( double )_rawBits / _nFractionalCapacity;
 }
-float 	Fixed::toFloat( void ) const
-{
+float 	Fixed::toFloat( void ) const {
 	return ( float )_rawBits / _nFractionalCapacity;
 }
 
-const Fixed&	Fixed::max( const Fixed& x, const Fixed& y )
-{
+const Fixed&	Fixed::max( const Fixed& x, const Fixed& y ) {
 	return x.getRawBits() > y.getRawBits() ? x : y;
 }
-const Fixed&	Fixed::min( const Fixed& x, const Fixed& y )
-{
+const Fixed&	Fixed::min( const Fixed& x, const Fixed& y ) {
 	return x.getRawBits() < y.getRawBits() ? x : y;
 }
 
-std::ostream&	operator<<( std::ostream& os, const Fixed& x )
-{
+std::ostream&	operator<<( std::ostream& os, const Fixed& x ) {
 	return os << x.toDouble();
 }

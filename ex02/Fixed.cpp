@@ -77,10 +77,12 @@ Fixed 	Fixed::operator*( const Fixed& x )
 }
 Fixed 	Fixed::operator/( const Fixed& x )
 {
-	Fixed	r( *this );
-	r._rawBits /= x._rawBits;
-	r._rawBits <<= _nFractionalBits;
-	return r;
+	long d = _rawBits;
+	d <<= sizeof( int ) * 8;
+	d /= x._rawBits;
+	d >>= sizeof( int ) * 8 - _nFractionalBits;
+	Fixed r;
+	return r.setRawBits( d );
 }
 bool 	Fixed::operator<( const Fixed& x )
 {

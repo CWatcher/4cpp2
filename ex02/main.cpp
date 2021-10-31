@@ -4,7 +4,7 @@
 
 void	compareDivision(Fixed x, Fixed y)
 {
-	std::cout << std::setprecision(20);
+	std::cout << std::setprecision(30);
 	std::cout << "Fixed:     " << std::setw(12)
 	          << x << " / " << y << " = " << x / y << std::endl;
 	std::cout << "toFloat(): " << std::setw(12)
@@ -24,6 +24,10 @@ void	test()
 	y.setRawBits(128);
 	compareDivision(127, 128);
 	compareDivision(999999, 1000000);
+	compareDivision(7777777, 8000000);
+	compareDivision(1, 1);
+	compareDivision(3, 2);
+	compareDivision(6, 2);
 }
 int 	main( int argc, char** )
 {

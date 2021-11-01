@@ -8,8 +8,9 @@ void compareOutput(int n)
 	static Fixed f;
 	f.setRawBits( n );
 	std::cout << std::setprecision(20);
-	std::cout << (long double)f.getRawBits() /  (1 << 8) << std::endl;
-	std::cout << f << std::endl;
+	std::cout << "Number stored " << (long double)f.getRawBits() /  (1 << 8)
+	          << std::endl;
+	std::cout << "Number output " << f << std::endl;
 	std::cout << std::endl;
 }
 

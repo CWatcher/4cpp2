@@ -16,6 +16,9 @@ Fixed::Fixed( const int x ) {
 Fixed::Fixed( const float x ) {
 	_rawBits = roundf(x * _nFractionalCapacity);
 }
+Fixed::Fixed( const double x ) {
+	_rawBits = roundf(x * _nFractionalCapacity);
+}
 Fixed::~Fixed( void )
 {}
 
@@ -66,18 +69,19 @@ Fixed 	Fixed::operator-( const Fixed& x ) const
 }
 Fixed 	Fixed::operator*( const Fixed& x ) const
 {
-	Fixed	r( *this );
-	r._rawBits *= x._rawBits;
-	r._rawBits >>= _nFractionalBits;
-	return r;
+	long	p = _rawBits;
+	p *= x._rawBits;
+	p >>= _nFractionalBits;
+	Fixed	r;
+	return r.setRawBits( p );
 }
 Fixed 	Fixed::operator/( const Fixed& x ) const
 {
-	long d = _rawBits;
+	long 	d = _rawBits;
 	d <<= sizeof( int ) * 8;
 	d /= x._rawBits;
 	d >>= sizeof( int ) * 8 - _nFractionalBits;
-	Fixed r;
+	Fixed 	r;
 	return r.setRawBits( d );
 }
 bool 	Fixed::operator<( const Fixed& x ) const {

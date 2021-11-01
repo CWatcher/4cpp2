@@ -10,6 +10,7 @@ public:
 	Fixed( const Fixed& x );
 	Fixed( const int x );
 	Fixed( const float x );
+	Fixed( const double x );
 	~Fixed( void );
 	int		getRawBits( void ) const;
 	Fixed&	setRawBits( int const raw );

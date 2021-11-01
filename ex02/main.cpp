@@ -12,6 +12,16 @@ void	compareDivision(Fixed x, Fixed y)
 	          << " = " << x.toFloat() / y.toFloat() << std::endl;
 	std::cout << std::endl;
 }
+void	compareMultiplication(Fixed fx, Fixed fy)
+{
+	std::cout << std::setprecision(30);
+	std::cout << "Fixed:      " << std::setw(12)
+	          << fx << " * " << fy << " = " << fx * fy << std::endl;
+	std::cout << "toDouble(): " << std::setw(12)
+	          << fx.toDouble() << " * " << fy.toDouble()
+	          << " = " << fx.toDouble() * fy.toDouble() << std::endl;
+	std::cout << std::endl;
+}
 void	test()
 {
 	Fixed	x(1), y(128);
@@ -28,6 +38,9 @@ void	test()
 	compareDivision(1, 1);
 	compareDivision(3, 2);
 	compareDivision(6, 2);
+
+	compareMultiplication(7777777, 0.5);
+	compareMultiplication(7777777, 0.3);
 }
 int 	main( int argc, char** )
 {

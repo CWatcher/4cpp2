@@ -1,39 +1,38 @@
 #include "Fixed.hpp"
 #include <iostream>
 #include <iomanip>
-#include <climits>
+#include <limits>
 
 void compareOutput(int n)
 {
 	static Fixed f;
 	f.setRawBits( n );
-	std::cout << std::setprecision(20);
-	std::cout << "Number stored " << (long double)f.getRawBits() /  (1 << 8)
+	std::streamsize prec = std::cout.precision();
+	std::cout.precision(16);
+	std::cout << "Number stored " << ( double )f.getRawBits() / (1 << 8)
 	          << std::endl;
 	std::cout << "Number output " << f << std::endl;
 	std::cout << std::endl;
+	std::cout.precision( prec );
 }
-void	compareToInt(Fixed fx)
+void	compareToInt( double x )
 {
-	std::cout << std::setprecision();
-	std::cout << "Fixed:            " << fx << ".toInt()  " << " = " <<        fx.toInt()   << std::endl;
-	std::cout << "toFloat(): ( int )" << fx << ".toFloat()" << " = " << ( int )fx.toFloat() << std::endl;
+	static Fixed f;
+	f.setRawBits( x * 256 );
+	std::cout << "Fixed:            " << f << ".toInt()  " << " = " <<        f.toInt()   << std::endl;
+	std::cout << "toFloat(): ( int )" << f << ".toFloat()" << " = " << ( int )f.toFloat() << std::endl;
 	std::cout << std::endl;
 }
 
 void test()
 {
-	for (int i = 0; i < 256; i += 64)
-		compareOutput(INT_MAX - i);
+	compareOutput( std::numeric_limits< int >::max() );
+	compareOutput( std::numeric_limits< int >::min() + 21 );
 
-	compareToInt(.5f);
+	compareToInt(.75);
 	compareToInt(-1);
-	compareToInt(-.5f);
-	compareToInt(-.99f);
-	compareToInt(-.01f);
-	compareToInt(-.01f);
-	compareToInt(-1/256.f);
-	compareToInt(-1.5f);
+	compareToInt(-.75);
+	compareToInt(-1.25);
 }
 
 int main( int, char* argv[] )

@@ -13,11 +13,27 @@ void compareOutput(int n)
 	std::cout << "Number output " << f << std::endl;
 	std::cout << std::endl;
 }
+void	compareToInt(Fixed fx)
+{
+	std::cout << std::setprecision();
+	std::cout << "Fixed:            " << fx << ".toInt()  " << " = " <<        fx.toInt()   << std::endl;
+	std::cout << "toFloat(): ( int )" << fx << ".toFloat()" << " = " << ( int )fx.toFloat() << std::endl;
+	std::cout << std::endl;
+}
 
 void test()
 {
 	for (int i = 0; i < 256; i += 64)
 		compareOutput(INT_MAX - i);
+
+	compareToInt(.5f);
+	compareToInt(-1);
+	compareToInt(-.5f);
+	compareToInt(-.99f);
+	compareToInt(-.01f);
+	compareToInt(-.01f);
+	compareToInt(-1/256.f);
+	compareToInt(-1.5f);
 }
 
 int main( int, char* argv[] )

@@ -103,7 +103,7 @@ bool 	Fixed::operator>=( const Fixed& x ) const {
 	return _rawBits >= x._rawBits;
 }
 int 	Fixed::toInt( void ) const {
-	return _rawBits >> _nFractionalBits;
+	return _rawBits / _nFractionalCapacity;
 }
 double 	Fixed::toDouble( void ) const {
 	return ( double )_rawBits / _nFractionalCapacity;

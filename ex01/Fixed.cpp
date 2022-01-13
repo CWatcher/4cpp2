@@ -40,7 +40,7 @@ Fixed& 	Fixed::operator=( const Fixed& x )
 	return *this;
 }
 int 	Fixed::toInt( void ) const
-{	return _rawBits >> _nFractionalBits;
+{	return _rawBits / _nFractionalCapacity;
 }
 double 	Fixed::toDouble( void ) const
 {	return ( double )_rawBits / _nFractionalCapacity;
